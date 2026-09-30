@@ -1,0 +1,32 @@
+{% extends "listings/base.html" %}
+{% block title %}Inquiry — {{ inquiry.property.title }}{% endblock %}
+{% block content %}
+
+<div class="thread-page">
+  <h2>{{ inquiry.property.title }}</h2>
+  <div class="meta-row">Status: <strong>{{ inquiry.get_status_display }}</strong></div>
+  <p class="note-inline">
+    Blueprint Housing handles verification and coordination directly — the landlord is only
+    looped in once things are confirmed.
+  </p>
+
+  <div class="thread">
+    {% for message in inquiry.messages.all %}
+      <div class="thread-msg {% if message.sender_is_student %}from-student{% else %}from-john{% endif %}">
+        <div class="thread-msg-sender">{% if message.sender_is_student %}You{% else %}Blueprint Housing{% endif %}</div>
+        <div class="thread-msg-body">{{ message.body }}</div>
+        <div class="thread-msg-time">{{ message.sent_at|date:"d M, H:i" }}</div>
+      </div>
+    {% empty %}
+      <p class="note-inline">No messages yet — send one below to get started.</p>
+    {% endfor %}
+  </div>
+
+  <form method="post" class="thread-form">
+    {% csrf_token %}
+    {{ form.body }}
+    <button type="submit">Send</button>
+  </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Blueprint Housing{% endblock %} — Find Your Next Home, Near Your School</title>
+<link rel="icon" href="{% static 'images/logo.png' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <a href="{% url 'home' %}" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;">
+      <img src="{% static 'images/logo.png' %}" alt="Blueprint Housing logo">
+      <div class="brand-name">Blueprint<span> Housing</span></div>
+    </a>
+  </div>
+  <nav>
+    <a href="{% url 'about' %}" class="nav-link">About</a>
+    {% if user.is_authenticated %}
+      <a href="{% url 'saved_searches' %}" class="nav-link">My Alerts</a>
+      <a href="/admin/logout/" class="nav-link">Log out</a>
+    {% else %}
+      <a href="/admin/login/?next={{ request.path }}" class="nav-link">Log in</a>
+    {% endif %}
+  </nav>
+</header>
+
+{% if messages %}
+  <div class="site-messages">
+    {% for message in messages %}
+      <div class="site-message">{{ message }}</div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <div class="brand-name">Blueprint<span style="color:var(--orange)"> Housing</span></div>
+      <p>A student housing platform for Technical University of Mombasa — discovery only, we help you find and verify your next room.</p>
+    </div>
+    <div class="foot-contacts">
+      <div class="contact-line">
+        <span class="icon">
+          <svg width="16" height="16" viewBox="0 0 32 32" fill="#25D366"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.82.738 5.554 2.14 7.968L0 32l8.24-2.106A15.93 15.93 0 0 0 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.09c-2.508 0-4.95-.673-7.09-1.947l-.508-.301-4.89 1.25 1.307-4.766-.33-.49A13.06 13.06 0 0 1 2.91 16C2.91 8.775 8.775 2.91 16 2.91S29.09 8.775 29.09 16 23.225 29.09 16 29.09z"/><path d="M23.4 19.1c-.4-.2-2.36-1.16-2.72-1.3-.37-.13-.63-.2-.9.2-.26.4-1.03 1.3-1.26 1.56-.23.27-.46.3-.86.1-.4-.2-1.67-.62-3.18-1.97-1.17-1.05-1.97-2.34-2.2-2.74-.23-.4-.02-.61.18-.81.18-.18.4-.47.6-.7.2-.24.27-.4.4-.67.13-.27.07-.5-.03-.7-.1-.2-.9-2.17-1.23-2.97-.32-.78-.65-.67-.9-.68-.23-.02-.5-.02-.77-.02s-.7.1-1.07.5c-.37.4-1.4 1.37-1.4 3.33s1.44 3.86 1.64 4.13c.2.27 2.83 4.32 6.86 6.06.96.42 1.7.66 2.28.85.96.3 1.83.26 2.52.16.77-.11 2.36-.96 2.7-1.9.33-.93.33-1.72.23-1.9-.1-.16-.36-.27-.76-.47z"/></svg>
+        </span>
+        0714 958 724
+      </div>
+      <div class="contact-line">
+        <span class="icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f7941d" stroke-width="2"><path d="M4 4h16v16H4z" stroke-linejoin="round"/><path d="M4 6l8 7 8-7" stroke-linejoin="round"/></svg>
+        </span>
+        infotheblueprinthousing@gmail.com
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">Blueprint Housing — Find Your Next Home, Near Your School</div>
+</footer>
+
+</body>
+</html>

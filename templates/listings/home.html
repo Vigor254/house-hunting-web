@@ -1,0 +1,99 @@
+{% extends "listings/base.html" %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<section class="hero">
+  <h1>Find your next home, near your school</h1>
+  {% if is_tum_student %}
+    <p class="sub">Browse verified rooms, bedsitters, hostels and guest houses around Technical University of Mombasa — sorted by distance from campus.</p>
+  {% else %}
+    <p class="sub">Browse verified rooms, bedsitters, hostels and guest houses in Mombasa — sorted by distance from your location.</p>
+  {% endif %}
+
+  <form class="searchbar" method="get">
+    <select name="room_type">
+      <option value="">All room types</option>
+      <option value="single">Single room</option>
+      <option value="bedsitter">Bedsitter</option>
+      <option value="1br">1 Bedroom</option>
+      <option value="2br">2 Bedroom</option>
+      <option value="hostel">Hostel</option>
+      <option value="guesthouse">Guest house</option>
+    </select>
+    <select name="max_price">
+      <option value="">Any budget</option>
+      <option value="4000">Under KES 4,000</option>
+      <option value="6000">Under KES 6,000</option>
+      <option value="9000">Under KES 9,000</option>
+      <option value="15000">Under KES 15,000</option>
+    </select>
+    <input type="text" name="keyword" placeholder="Search by area, e.g. Tudor, Kisauni...">
+    <button type="submit">Search</button>
+  </form>
+  <div class="note-inline">
+    {% if is_tum_student %}Sorted by distance from Technical University of Mombasa{% else %}Sorted by distance from your current location{% endif %}
+  </div>
+</section>
+
+<div class="split">
+  <div class="map-pane" id="mapPane">
+    <div class="campus-marker" style="left:46%; top:52%;">
+      <div class="flag">Technical University of Mombasa</div>
+      <div class="dot"></div>
+    </div>
+    <div class="map-legend">
+      <div class="k"><span class="sw" style="background:var(--orange)"></span>Room / bedsitter</div>
+      <div class="k"><span class="sw" style="background:var(--navy)"></span>Hostel / guest house</div>
+    </div>
+    {% for property in properties %}
+      {% if property.latitude and property.longitude %}
+      <a href="{% url 'property_detail' property.pk %}"
+         class="pin {% if property.uses_subscription %}hostel{% endif %}"
+         style="left: {{ forloop.counter0|add:20 }}%; top: {{ forloop.counter0|add:15 }}%;">
+        <div class="price-tag">KES {{ property.price_per_month }}</div>
+        <div class="stem"></div>
+      </a>
+      {% endif %}
+    {% endfor %}
+    <!-- NOTE: pin positions above are a simple placeholder layout.
+         Once GOOGLE_MAPS_API_KEY is configured, replace this block with
+         a real map (e.g. Google Maps JS API) using each property's
+         latitude/longitude. -->
+  </div>
+
+  <div class="list-pane">
+    {% for property in properties %}
+      <a href="{% url 'property_detail' property.pk %}" class="card">
+        {% with property.photos.first as photo %}
+          {% if photo %}
+            <div class="thumb" style="background-image:url('{{ photo.image.url }}')"></div>
+          {% else %}
+            <div class="thumb" style="background:linear-gradient(135deg,#cfd8f5,#8ea0e6)"></div>
+          {% endif %}
+        {% endwith %}
+        <div class="info">
+          <h3>{{ property.title }}
+            <span class="badge {% if property.uses_subscription %}hostel{% else %}room{% endif %}">
+              {{ property.get_room_type_display }}
+            </span>
+          </h3>
+          <div class="meta">
+            {% if is_tum_student %}
+              {{ property.distance_from_campus_km|default:"?" }} km from Technical University of Mombasa
+            {% else %}
+              {{ property.distance_from_campus_km|default:"?" }} km from your location
+            {% endif %}
+          </div>
+          <div class="price">KES {{ property.price_per_month }}/mo</div>
+        </div>
+      </a>
+    {% empty %}
+      <div style="padding:30px;text-align:center;color:var(--ink-soft);">
+        No listings match those filters yet — try widening your search.
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

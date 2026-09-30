@@ -1,0 +1,131 @@
+:root{
+  --navy:#12277a;
+  --navy-deep:#0b1a56;
+  --orange:#f7941d;
+  --orange-deep:#e0790a;
+  --cream:#f7f8fc;
+  --ink:#1c2340;
+  --ink-soft:#5a6180;
+  --line:#e3e6f2;
+  --radius:14px;
+  --shadow:0 10px 30px rgba(18,39,122,0.10);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{font-family:'Segoe UI',Verdana,Arial,sans-serif;background:var(--cream);color:var(--ink);line-height:1.5;}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;}
+
+header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 28px;background:#fff;border-bottom:1px solid var(--line);
+  position:sticky;top:0;z-index:50;
+}
+.brand img{height:44px;width:auto;}
+.brand-name{font-weight:800;font-size:1.15rem;color:var(--navy-deep);letter-spacing:-0.01em;}
+.brand-name span{color:var(--orange);}
+nav{display:flex;align-items:center;gap:18px;font-size:0.9rem;color:var(--ink-soft);}
+.nav-link:hover{color:var(--navy);}
+
+.site-messages{max-width:1180px;margin:14px auto 0;padding:0 28px;}
+.site-message{
+  background:#eefaf0;border:1px solid #bfe8c8;color:#1e6b34;
+  border-radius:10px;padding:10px 14px;font-size:0.88rem;margin-bottom:8px;
+}
+
+.hero{padding:38px 28px 24px;max-width:1180px;margin:0 auto;}
+.hero h1{font-size:1.9rem;margin:0 0 6px;color:var(--navy-deep);letter-spacing:-0.01em;}
+.hero p.sub{margin:0 0 20px;color:var(--ink-soft);font-size:1rem;}
+.searchbar{
+  display:flex;flex-wrap:wrap;gap:10px;background:#fff;border:1px solid var(--line);
+  border-radius:var(--radius);padding:10px;box-shadow:var(--shadow);
+}
+.searchbar select, .searchbar input{
+  border:none;background:var(--cream);border-radius:10px;padding:11px 12px;
+  font-size:0.9rem;color:var(--ink);flex:1;min-width:130px;
+}
+.searchbar button{
+  background:var(--orange);color:#fff;border:none;border-radius:10px;
+  padding:11px 22px;font-weight:700;font-size:0.9rem;cursor:pointer;
+}
+.searchbar button:hover{background:var(--orange-deep);}
+.note-inline{font-size:0.8rem;color:var(--ink-soft);margin-top:8px;}
+
+.split{display:flex;gap:20px;max-width:1180px;margin:18px auto 60px;padding:0 28px;align-items:flex-start;}
+.map-pane{
+  flex:1.15;background:linear-gradient(160deg,#dfe6f7 0%, #eef1fb 55%, #e6ecf9 100%);
+  border-radius:var(--radius);border:1px solid var(--line);position:relative;height:560px;
+  overflow:hidden;box-shadow:var(--shadow);
+}
+.campus-marker{position:absolute;transform:translate(-50%,-100%);display:flex;flex-direction:column;align-items:center;}
+.campus-marker .flag{background:var(--navy-deep);color:#fff;font-size:0.68rem;font-weight:700;padding:4px 9px;border-radius:6px;white-space:nowrap;margin-bottom:3px;}
+.campus-marker .dot{width:14px;height:14px;background:var(--navy-deep);border:3px solid #fff;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,.25);}
+.pin{position:absolute;transform:translate(-50%,-100%);cursor:pointer;display:flex;flex-direction:column;align-items:center;}
+.pin .price-tag{background:#fff;border:2px solid var(--orange);color:var(--navy-deep);font-weight:800;font-size:0.72rem;padding:4px 8px;border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,.15);white-space:nowrap;}
+.pin.hostel .price-tag{border-color:var(--navy);}
+.pin .stem{width:2px;height:8px;background:var(--orange);margin:0 auto;}
+.map-legend{position:absolute;left:14px;bottom:14px;background:rgba(255,255,255,.92);border-radius:10px;padding:9px 12px;font-size:0.75rem;color:var(--ink-soft);display:flex;gap:14px;box-shadow:var(--shadow);}
+.map-legend .k{display:flex;align-items:center;gap:6px;}
+.map-legend .sw{width:10px;height:10px;border-radius:3px;}
+
+.list-pane{flex:1;display:flex;flex-direction:column;gap:14px;max-height:560px;overflow-y:auto;padding-right:4px;}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px;display:flex;gap:12px;transition:box-shadow .15s, border-color .15s;}
+.card:hover{border-color:var(--navy);box-shadow:var(--shadow);}
+.card .thumb{width:88px;height:78px;border-radius:10px;flex-shrink:0;background-size:cover;background-position:center;}
+.card .info{flex:1;min-width:0;}
+.card .info h3{margin:0 0 3px;font-size:0.95rem;color:var(--navy-deep);}
+.card .info .meta{font-size:0.78rem;color:var(--ink-soft);margin-bottom:4px;}
+.card .info .price{font-weight:800;color:var(--orange-deep);font-size:0.92rem;}
+.badge{display:inline-block;font-size:0.66rem;font-weight:700;padding:2px 7px;border-radius:6px;margin-left:6px;vertical-align:middle;}
+.badge.hostel{background:#eaf0ff;color:var(--navy);}
+.badge.room{background:#fff2e2;color:var(--orange-deep);}
+
+.detail-page{max-width:640px;margin:24px auto 60px;background:#fff;border-radius:18px;box-shadow:var(--shadow);overflow:hidden;}
+.detail-photo{height:260px;background-size:cover;background-position:center;}
+.detail-body{padding:22px 24px 26px;}
+.detail-body h2{margin:0 0 4px;color:var(--navy-deep);font-size:1.3rem;}
+.detail-body .meta-row{color:var(--ink-soft);font-size:0.85rem;margin-bottom:12px;}
+.detail-body .price-row{font-size:1.15rem;font-weight:800;color:var(--orange-deep);margin-bottom:14px;}
+.detail-body p.desc{font-size:0.92rem;color:var(--ink);margin-bottom:16px;}
+.fee-note{background:#fff8ec;border:1px solid #ffe1ad;border-radius:10px;padding:10px 14px;font-size:0.8rem;color:#8a5a00;margin-bottom:18px;}
+.inquire-btn{width:100%;background:var(--navy);color:#fff;border:none;border-radius:10px;padding:13px;font-weight:700;font-size:0.95rem;cursor:pointer;}
+.inquire-btn:hover{background:var(--navy-deep);}
+.favorite-btn{width:100%;background:#fff;color:var(--navy);border:1px solid var(--navy);border-radius:10px;padding:11px;font-weight:700;font-size:0.9rem;cursor:pointer;}
+
+.thread-page, .alerts-page, .about-page{max-width:700px;margin:30px auto 60px;padding:0 24px;}
+.thread{display:flex;flex-direction:column;gap:10px;margin:18px 0;}
+.thread-msg{max-width:75%;padding:10px 14px;border-radius:12px;font-size:0.88rem;}
+.thread-msg.from-student{align-self:flex-end;background:var(--navy);color:#fff;}
+.thread-msg.from-john{align-self:flex-start;background:#fff;border:1px solid var(--line);}
+.thread-msg-sender{font-size:0.7rem;opacity:.75;margin-bottom:2px;}
+.thread-msg-time{font-size:0.65rem;opacity:.6;margin-top:3px;}
+.thread-form{display:flex;gap:8px;}
+.thread-form textarea{flex:1;border:1px solid var(--line);border-radius:10px;padding:10px;font-family:inherit;}
+.thread-form button{background:var(--orange);color:#fff;border:none;border-radius:10px;padding:0 18px;font-weight:700;cursor:pointer;}
+
+.alert-form p{margin:0 0 12px;}
+.alert-form select, .alert-form input{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;}
+.alert-form button{background:var(--navy);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-weight:700;cursor:pointer;}
+.alert-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-bottom:8px;font-size:0.88rem;}
+
+.about-page h1{color:var(--navy-deep);font-size:1.8rem;}
+.about-page h2{color:var(--navy-deep);font-size:1.15rem;margin-top:26px;}
+.about-page p{font-size:0.95rem;color:var(--ink);}
+.about-list{padding-left:20px;}
+.about-list li{margin-bottom:10px;font-size:0.95rem;}
+
+footer{background:var(--navy-deep);color:#dfe4fb;padding:36px 28px 20px;}
+.foot-inner{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:30px;justify-content:space-between;}
+.foot-brand{max-width:280px;}
+.foot-brand .brand-name{color:#fff;}
+.foot-brand p{font-size:0.85rem;color:#b7c0e6;margin-top:8px;}
+.foot-contacts{display:flex;flex-direction:column;gap:10px;}
+.contact-line{display:flex;align-items:center;gap:9px;font-size:0.88rem;}
+.contact-line .icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(255,255,255,.08);}
+.foot-bottom{max-width:1180px;margin:26px auto 0;padding-top:16px;border-top:1px solid rgba(255,255,255,.12);font-size:0.76rem;color:#8b95c4;text-align:center;}
+
+@media (max-width:820px){
+  .split{flex-direction:column;}
+  .map-pane{height:340px;width:100%;}
+  .list-pane{max-height:none;}
+}

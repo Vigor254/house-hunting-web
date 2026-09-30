@@ -1,0 +1,29 @@
+{% extends "listings/base.html" %}
+{% block title %}My Alerts{% endblock %}
+{% block content %}
+
+<div class="alerts-page">
+  <h2>My alerts</h2>
+  <p class="note-inline">
+    Get a WhatsApp/SMS notification the moment a new room matching your criteria is added.
+  </p>
+
+  <form method="post" class="alert-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add alert</button>
+  </form>
+
+  <h3 style="margin-top:26px;">Your saved alerts</h3>
+  {% for search in existing %}
+    <div class="alert-card">
+      {{ search.get_room_type_display|default:"Any room type" }} ·
+      {% if search.max_price %}under KES {{ search.max_price }}{% else %}any budget{% endif %}
+      {% if search.keyword %} · "{{ search.keyword }}"{% endif %}
+    </div>
+  {% empty %}
+    <p class="note-inline">No alerts saved yet.</p>
+  {% endfor %}
+</div>
+
+{% endblock %}

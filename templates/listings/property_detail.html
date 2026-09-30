@@ -1,0 +1,53 @@
+{% extends "listings/base.html" %}
+{% block title %}{{ property.title }}{% endblock %}
+{% block content %}
+
+<div class="detail-page">
+  {% with property.photos.first as photo %}
+    {% if photo %}
+      <div class="detail-photo" style="background-image:url('{{ photo.image.url }}')"></div>
+    {% else %}
+      <div class="detail-photo" style="background:linear-gradient(135deg,#cfd8f5,#8ea0e6)"></div>
+    {% endif %}
+  {% endwith %}
+
+  <div class="detail-body">
+    <h2>{{ property.title }}</h2>
+    <div class="meta-row">
+      {{ property.get_room_type_display }} ·
+      {{ property.distance_from_campus_km|default:"?" }} km from Technical University of Mombasa ·
+      {{ property.location_name }}
+    </div>
+    <div class="price-row">KES {{ property.price_per_month }} / month</div>
+    <p class="desc">{{ property.description }}</p>
+
+    {% if property.uses_subscription %}
+      <div class="fee-note">
+        This listing is displayed under the owner's monthly Blueprint Housing subscription —
+        free for students to view and contact.
+      </div>
+    {% else %}
+      <div class="fee-note">
+        A finder's fee (about a third of one month's rent) applies only once you commit to
+        renting through Blueprint Housing — never before you view the room.
+      </div>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+      <form method="post" action="{% url 'create_inquiry' property.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="inquire-btn">Inquire about this place</button>
+      </form>
+      <form method="post" action="{% url 'toggle_favorite' property.pk %}" style="margin-top:8px;">
+        {% csrf_token %}
+        <button type="submit" class="favorite-btn">Save to favorites</button>
+      </form>
+    {% else %}
+      <a href="/admin/login/?next={{ request.path }}" class="inquire-btn" style="display:block;text-align:center;text-decoration:none;">
+        Log in to inquire
+      </a>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}
